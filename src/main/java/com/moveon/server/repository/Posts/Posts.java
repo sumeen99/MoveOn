@@ -1,6 +1,7 @@
-package com.moveon.server.repository;
+package com.moveon.server.repository.Posts;
 
-import com.moveon.server.repository.Department.Department;
+import com.moveon.server.repository.Comments.Comments;
+import com.moveon.server.repository.Like.Like;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

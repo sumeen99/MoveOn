@@ -1,4 +1,4 @@
-package com.moveon.server.repository;
+package com.moveon.server.repository.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

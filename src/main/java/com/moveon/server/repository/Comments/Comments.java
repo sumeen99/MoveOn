@@ -1,4 +1,4 @@
-package com.moveon.server.repository;
+package com.moveon.server.repository.Comments;
 
 
 import lombok.AllArgsConstructor;
