@@ -1,5 +1,6 @@
 package com.moveon.server.repository.PostsTagRelationShip;
 
+import com.moveon.server.repository.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "posts_tag_relationship")
-public class PostsTagRelationShip {
+public class PostsTagRelationShip extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

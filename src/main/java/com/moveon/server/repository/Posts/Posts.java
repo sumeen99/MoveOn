@@ -1,5 +1,6 @@
 package com.moveon.server.repository.Posts;
 
+import com.moveon.server.repository.BaseTimeEntity;
 import com.moveon.server.repository.Comments.Comments;
 import com.moveon.server.repository.Like.Like;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.Collection;
 @Entity
 @Builder
 @NoArgsConstructor
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

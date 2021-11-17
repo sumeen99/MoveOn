@@ -1,5 +1,6 @@
 package com.moveon.server.repository.School;
 
+import com.moveon.server.repository.BaseTimeEntity;
 import com.moveon.server.repository.Department.Department;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @Entity
 @Builder
-public class School {
+public class School extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

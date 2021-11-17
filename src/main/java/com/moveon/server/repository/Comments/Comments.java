@@ -1,6 +1,7 @@
 package com.moveon.server.repository.Comments;
 
 
+import com.moveon.server.repository.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Comments {
+public class Comments extends BaseTimeEntity {
 
     @Id
     @Column(nullable = false)
