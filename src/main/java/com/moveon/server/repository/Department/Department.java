@@ -1,11 +1,13 @@
 package com.moveon.server.repository.Department;
 
+import com.moveon.server.repository.Posts;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Getter
 @Entity
@@ -24,6 +26,10 @@ public class Department {
 
     @Column(nullable = false)
     private String content;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name ="school_id")
+    private Collection<Posts> posts;
 
 
 }

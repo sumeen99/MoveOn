@@ -26,7 +26,7 @@ public class School {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name ="school_id")
-    public Collection<Department> departments;
+    private Collection<Department> departments;
 
 
 
