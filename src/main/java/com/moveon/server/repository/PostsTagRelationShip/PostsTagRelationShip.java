@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class PostsTagRelationShip extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="post_id",nullable = false)

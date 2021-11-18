@@ -18,7 +18,7 @@ import java.util.Collection;
 public class Department extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
 
@@ -31,6 +31,15 @@ public class Department extends BaseTimeEntity {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name ="school_id")
     private Collection<Posts> posts;
+
+    @Column(nullable = false)
+    private double x;
+
+    @Column(nullable = false)
+    private double y;
+
+    @Column(nullable = false)
+    private double distance;
 
 
 }

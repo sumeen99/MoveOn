@@ -21,12 +21,16 @@ public class DepartmentRepositoryTest {
         //given
         Long schoolId=1L;
         String content="우정당";
+        double x=127.07577;
+        double y=37.55106;
+        double distance=19.8;
 
         //when
-        Department department=departmentRepository.save(Department.builder().schoolId(schoolId).content(content).build());
+        Department department=departmentRepository.save(Department.builder().schoolId(schoolId).content(content).x(x).y(y).distance(distance).build());
 
         //then
         Department department1=departmentRepository.findById(department.getId()).orElseThrow(()->new IllegalArgumentException("NO DEPARTMENT"));
+
         assertThat(department).isEqualTo(department1);
     }
 
