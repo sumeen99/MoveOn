@@ -32,9 +32,6 @@ public class Posts extends BaseTimeEntity {
     @Column(name="user_id",nullable = false)
     private Long userId;
 
-    @Column(name = "user_nickname",nullable = false)
-    private String userNikcname;
-
     @Column(nullable = false)
     private String content;
 

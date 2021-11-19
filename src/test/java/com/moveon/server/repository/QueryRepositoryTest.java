@@ -1,5 +1,7 @@
 package com.moveon.server.repository;
 
+import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShip;
+import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShipRepository;
 import com.moveon.server.repository.School.School;
 import com.moveon.server.repository.School.SchoolRepository;
 import com.moveon.server.repository.Tag.Tag;
@@ -24,6 +26,9 @@ public class QueryRepositoryTest {
     @Autowired
     private SchoolRepository schoolRepository;
 
+    @Autowired
+    private PostsTagRelationShipRepository postsTagRelationShipRepository;
+
     @Test
     public void findByContent(){
         //given
@@ -41,10 +46,24 @@ public class QueryRepositoryTest {
     public void findByTagDepartmentId(){
         //given
         Long departmentId=2L;
+        Long schoolId=1L;
+        Long postId=2L;
+        Long tagId=3L;
+        Long userId=2L;
+        PostsTagRelationShip postsTagRelationShip=postsTagRelationShipRepository.save(PostsTagRelationShip.builder().departmentId(departmentId).schoolId(schoolId).postId(postId).userId(userId).tagId(tagId).build());
         //when
         List<Tag> tags= queryRepository.findTagByDepartmentId(departmentId);
-        //
-        System.out.println(tags);
+        //then
+        assertThat(tags.get(tags.size()-1).getId()).isEqualTo(postsTagRelationShip.getId());
+    }
+
+    @Test
+    public void  findTagPostsByDepartmentId(){
+        //given
+
+        //when
+        //then
+
     }
 
 }

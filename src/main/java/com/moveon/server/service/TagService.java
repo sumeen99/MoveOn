@@ -6,6 +6,7 @@ import com.moveon.server.repository.Tag.Tag;
 import com.moveon.server.repository.Tag.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class TagService {
     private final TagRepository tagRepository;
     private final QueryRepository queryRepository;
 
-
-    public List<Tag> select(Long departmentId){
+    @Transactional(readOnly = true)
+    public List<Tag> selectTags(Long departmentId){
         return queryRepository.findTagByDepartmentId(departmentId);
     }
 

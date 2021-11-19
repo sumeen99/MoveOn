@@ -10,7 +10,9 @@ import lombok.Getter;
 public class TagPostsRequestDto {
     private final Long tagId;
     private final String tagContent;
+    private final Long postId;
     private final Long userId;
     private final String userNickname;
     private final String postsContent;
+    private final String profileUrl;
 }
