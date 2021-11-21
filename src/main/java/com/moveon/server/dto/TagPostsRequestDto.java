@@ -1,8 +1,11 @@
 package com.moveon.server.dto;
 
+import com.moveon.server.repository.Tag.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -15,4 +18,5 @@ public class TagPostsRequestDto {
     private final String userNickname;
     private final String postsContent;
     private final String profileUrl;
+    private final List<Tag> tags;
 }

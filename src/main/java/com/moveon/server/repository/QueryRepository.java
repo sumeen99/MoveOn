@@ -67,7 +67,7 @@ public class QueryRepository {
             User users = queryFactory.selectFrom(user).where(user.id.eq(userId)).fetchOne();
             String userNickname = users.getNickname();
             String usersProfileUrl = users.getProfileUrl();
-            tagPostsRequestDtos.add(TagPostsRequestDto.builder().tagId(tagId).postId(postId).userId(userId).tagContent(tagContent).postsContent(postContent).userNickname(userNickname).profileUrl(usersProfileUrl).build());
+            tagPostsRequestDtos.add(TagPostsRequestDto.builder().tagId(tagId).postId(postId).userId(userId).tagContent(tagContent).postsContent(postContent).userNickname(userNickname).profileUrl(usersProfileUrl).tags(findTagByPostId(postId)).build());
         }
         return tagPostsRequestDtos;
     }
