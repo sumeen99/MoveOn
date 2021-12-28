@@ -1,0 +1,6 @@
+1. 태그API(department_id)(근데 이거 그냥 예시 태그면 나중에 id필요없이 그냥 너가 고정으로 해놓거나 내가 고정으로 해놔도 될듯)
+http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/tag/select?department_id=2
+2. 태그관련 게시글(department_id,size)
+ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts_tag_relationship/select?department_id=2&size=2
+3. 게시글API(department_id,size)
+ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts/select?department_id=2&size=2
