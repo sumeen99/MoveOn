@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Builder
-public class TagPostsRequestDto {
+public class TagPostsResponseDto {
     private final Long tagId;
     private final String tagContent;
     private final Long postId;

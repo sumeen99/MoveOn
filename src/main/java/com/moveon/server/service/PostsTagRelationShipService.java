@@ -1,7 +1,6 @@
 package com.moveon.server.service;
 
-import com.moveon.server.dto.TagPostsRequestDto;
-import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShip;
+import com.moveon.server.dto.TagPostsResponseDto;
 import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShipRepository;
 import com.moveon.server.repository.QueryRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,7 @@ public class PostsTagRelationShipService {
     private final QueryRepository queryRepository;
 
     @Transactional(readOnly = true)
-    public List<TagPostsRequestDto> selectTagPosts(Long departmentId,int cnt){
+    public List<TagPostsResponseDto> selectTagPosts(Long departmentId, int cnt){
         return queryRepository.findTagPostsByDepartmentId(departmentId,cnt);
     }
 

@@ -1,7 +1,7 @@
 package com.moveon.server.repository;
 
-import com.moveon.server.dto.PostsRequestDto;
-import com.moveon.server.dto.TagPostsRequestDto;
+import com.moveon.server.dto.PostsResponseDto;
+import com.moveon.server.dto.TagPostsResponseDto;
 import com.moveon.server.repository.Posts.Posts;
 import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShip;
 import com.moveon.server.repository.School.School;
@@ -55,13 +55,13 @@ public class QueryRepository {
      * @param size         data 개수
      * @return 태그관련게시글에 들어가는 데이터들
      */
-    public List<TagPostsRequestDto> findTagPostsByDepartmentId(Long departmentId, int size) {
+    public List<TagPostsResponseDto> findTagPostsByDepartmentId(Long departmentId, int size) {
         List<PostsTagRelationShip> postsTagRelationShips = queryFactory.selectFrom(postsTagRelationShip)
                 .where(postsTagRelationShip.departmentId.eq(departmentId))
                 .limit(size)
                 .orderBy(postsTagRelationShip.createdDate.desc())
                 .fetch();
-        List<TagPostsRequestDto> tagPostsRequestDtos = new ArrayList<>();
+        List<TagPostsResponseDto> tagPostsResponseDtos = new ArrayList<>();
         for (PostsTagRelationShip i : postsTagRelationShips) {
             Long tagId = i.getTagId();
             Long postId = i.getPostId();
@@ -71,21 +71,21 @@ public class QueryRepository {
             User users = queryFactory.selectFrom(user).where(user.id.eq(userId)).fetchOne();
             String userNickname = users.getNickname();
             String usersProfileUrl = users.getProfileUrl();
-            tagPostsRequestDtos.add(TagPostsRequestDto.builder().tagId(tagId).postId(postId).userId(userId).tagContent(tagContent).postsContent(postContent).userNickname(userNickname).profileUrl(usersProfileUrl).tags(findTagByPostId(postId)).build());
+            tagPostsResponseDtos.add(TagPostsResponseDto.builder().tagId(tagId).postId(postId).userId(userId).tagContent(tagContent).postsContent(postContent).userNickname(userNickname).profileUrl(usersProfileUrl).tags(findTagByPostId(postId)).build());
         }
-        return tagPostsRequestDtos;
+        return tagPostsResponseDtos;
     }
 
-    public List<PostsRequestDto> findPostsByDepartmentId(Long departmentId, int size) {
+    public List<PostsResponseDto> findPostsByDepartmentId(Long departmentId, int size) {
         List<Posts> post = queryFactory.selectFrom(posts).where(posts.departmentId.eq(departmentId)).limit(size).orderBy(posts.createdDate.desc()).fetch();
-        List<PostsRequestDto> postsRequestDtos = new ArrayList<>();
+        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
         for (Posts i : post) {
             Long userId = i.getUserId();
             Long postId = i.getId();
             User users = queryFactory.selectFrom(user).where(user.id.eq(userId)).fetchOne();
-            postsRequestDtos.add(PostsRequestDto.builder().userId(userId).profileUrl(users.getProfileUrl()).nickname(users.getNickname()).postId(postId).imgUrl(i.getImgUrl()).content(i.getContent()).like(whetherLike(postId, userId)).tags(findTagByPostId(postId)).build());
+            postsResponseDtos.add(PostsResponseDto.builder().userId(userId).profileUrl(users.getProfileUrl()).nickname(users.getNickname()).postId(postId).imgUrl(i.getImgUrl()).content(i.getContent()).like(whetherLike(postId, userId)).tags(findTagByPostId(postId)).build());
         }
-        return postsRequestDtos;
+        return postsResponseDtos;
     }
 
     public Boolean whetherLike(Long postId, Long userId) {

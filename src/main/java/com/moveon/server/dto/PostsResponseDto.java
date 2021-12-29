@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Builder
-public class PostsRequestDto {
+public class PostsResponseDto {
     private final Long userId;
     private final String nickname;
     private final String profileUrl;

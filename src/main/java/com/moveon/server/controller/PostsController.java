@@ -1,6 +1,6 @@
 package com.moveon.server.controller;
 
-import com.moveon.server.dto.PostsRequestDto;
+import com.moveon.server.dto.PostsResponseDto;
 import com.moveon.server.service.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ public class PostsController {
 
     @ResponseBody
     @GetMapping("/api/v1/posts/select")
-    public List<PostsRequestDto> select(@RequestParam("department_id")Long departmentId,@RequestParam("size") int size){
+    public List<PostsResponseDto> select(@RequestParam("department_id")Long departmentId, @RequestParam("size") int size){
         return postsService.selectPosts(departmentId,size);
     }
 }

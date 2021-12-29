@@ -26,8 +26,7 @@ public class User extends BaseTimeEntity {
     private String nickname;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Authority role;
+    private String role;
 
     @Column(nullable = false,unique = true)
     private String email;
@@ -46,6 +45,6 @@ public class User extends BaseTimeEntity {
     private String profileUrl;
 }
 
-enum Authority{//나중에 문제 생기면 원래는 public이 와야했다는거 다시 생각해보자 지금은 문제 생겨서 public없애놓은 상황
-    ROLE_USER,ROLE_ADMIN;
-}
+//enum Authority{//나중에 문제 생기면 원래는 public이 와야했다는거 다시 생각해보자 지금은 문제 생겨서 public없애놓은 상황
+//    ROLE_USER,ROLE_ADMIN;
+//}
