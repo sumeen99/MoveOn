@@ -9,7 +9,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email);
 
-    @EntityGraph(attributePaths = "authorities")
-    Optional<User> findOneWithAuthoritiesByUsername(String username);
+    @EntityGraph(attributePaths = "authorities") //Eager조회
+    Optional<User> findOneWithAuthoritiesByEmail(String email);
 
 }
