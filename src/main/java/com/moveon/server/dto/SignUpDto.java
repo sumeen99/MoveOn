@@ -1,11 +1,13 @@
 package com.moveon.server.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.moveon.server.repository.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -22,6 +24,8 @@ public class SignUpDto {
     private String name;
 
     @NotNull
-    private String School;
+    private String school;
+
+    private Set<Authority> authoritySet;
 
 }

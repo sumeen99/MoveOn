@@ -34,7 +34,7 @@ public class QueryRepositoryTest {
         //given
         String content="광운대학교";
         //LocalDateTime now= LocalDateTime.of(2021,11,19,0,0,0);
-        schoolRepository.save(School.builder().content(content).build());
+        //schoolRepository.save(School.builder().content(content).build());
         //when
         School school=queryRepository.findByContent(content);
         //then

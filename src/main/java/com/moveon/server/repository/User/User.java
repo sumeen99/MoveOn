@@ -1,5 +1,6 @@
 package com.moveon.server.repository.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.moveon.server.repository.Authority;
 import com.moveon.server.repository.BaseTimeEntity;
 import lombok.AllArgsConstructor;
@@ -18,10 +19,12 @@ import java.util.Set;
 @Builder
 public class User extends BaseTimeEntity {
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @Column(name="school_id",nullable = false)
     private Long schoolId;
 
@@ -34,6 +37,7 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false,unique = true)
     private String email;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -47,11 +51,14 @@ public class User extends BaseTimeEntity {
 
     private String profileUrl;
 
+    @JsonIgnore
     private boolean activated;
 
     @ManyToMany
     @JoinTable(
-            name= "user_authority"
+            name= "user_authority",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_name")
     )private Set<Authority> authorities;
 
 
