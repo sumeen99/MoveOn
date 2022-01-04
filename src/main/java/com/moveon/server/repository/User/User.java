@@ -1,8 +1,10 @@
 package com.moveon.server.repository.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.moveon.server.dto.SignUpDto;
 import com.moveon.server.repository.Authority;
 import com.moveon.server.repository.BaseTimeEntity;
+import com.moveon.server.repository.School.School;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.Set;
 
 @Entity
@@ -61,12 +64,20 @@ public class User extends BaseTimeEntity {
             inverseJoinColumns = @JoinColumn(name = "authority_name")
     )private Set<Authority> authorities;
 
-
+    public static User toUser(School school, SignUpDto signUpDto, Authority authority, String password){
+        return User.builder()
+                .schoolId(school.getId())
+                .school(school.getContent())
+                .nickname("익명")
+                .role("이거곧지울부분")
+                .email(signUpDto.getEmail())
+                .password(password)
+                .name(signUpDto.getName())
+                .activated(true)
+                .authorities(Collections.singleton(authority))
+                .build();
+    }
 
 
 
 }
-
-//enum Authority{//나중에 문제 생기면 원래는 public이 와야했다는거 다시 생각해보자 지금은 문제 생겨서 public없애놓은 상황
-//    ROLE_USER,ROLE_ADMIN;
-//}

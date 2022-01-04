@@ -1,6 +1,23 @@
-1. 태그API(department_id)(근데 이거 그냥 예시 태그면 나중에 id필요없이 그냥 너가 고정으로 해놓거나 내가 고정으로 해놔도 될듯)
+1.[GET] 태그API(department_id)(근데 이거 그냥 예시 태그면 나중에 id필요없이 그냥 너가 고정으로 해놓거나 내가 고정으로 해놔도 될듯)
 http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/tag/select?department_id=2
-2. 태그관련 게시글(department_id,size)
+2.[GET] 태그관련 게시글(department_id,size)
 ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts_tag_relationship/select?department_id=2&size=2
-3. 게시글API(department_id,size)
+3.[GET] 게시글API(department_id,size)
 ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts/select?department_id=2&size=2
+4.[POST] 회원가입API
+ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/signup
+이지만, Body부분에 email,password,name,school을 포함한 것을 JSON형식으로 보내줘야함
+ex){
+"email":"sumeen@hi.com",
+"password":"sumeen",
+"name":"이술민",
+"school":"세종대학교"
+}
+이런식으로! 성공하면 이메일을 다시 너한테 가게 해놨어! 회원가입성공하면 어떤정보를 더 너한테 줘야할지는 같이 생각해보자!
+5.[POST]로그인API
+ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/login
+를 하면 token을 얻음. 이 token을 아마 클라이언트쪽에 계속 저장하고 있어야할듯! 그걸로 일반API부를 때 인증가능!
+이제부터 로그인,회원가입API를 제외하고 다른 보통 API들을 사용할 때, Authorization에 토큰을 계속 넣어줘야함!
+또한, 토큰의 유효시간이 지금은 30분? 인데.. 유효시간 부분은 너랑 얘기해봐야할듯! 암튼 30분이 지나면 토큰은 유효하지 않게되어서
+재로그인을 통해 토큰을 다시 받아야함! 
+

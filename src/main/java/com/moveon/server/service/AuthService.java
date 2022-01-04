@@ -18,8 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -49,17 +47,8 @@ public class AuthService {
                 .build();
 
         School school = queryRepository.findByContent(signUpDto.getSchool());
-        User user = User.builder()
-                .schoolId(school.getId())
-                .school(school.getContent())
-                .nickname("익명")
-                .role("이거곧지울부분")
-                .email(signUpDto.getEmail())
-                .password(passwordEncoder.encode(signUpDto.getPassword()))
-                .name(signUpDto.getName())
-                .activated(true)
-                .authorities(Collections.singleton(authority))
-                .build();
+
+        User user = User.toUser(school, signUpDto, authority, passwordEncoder.encode(signUpDto.getPassword()));
 
         return UserResponseDto.of(userRepository.save(user));
     }
