@@ -1,6 +1,7 @@
 package com.moveon.server.config.Jwt;
 
 
+import com.moveon.server.dto.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -30,9 +31,8 @@ public class JwtTokenProvider implements InitializingBean {
     private Key key;
 
 
-
-    public JwtTokenProvider(@Value("${jwt.secret}")String secretKey){
-        this.secretKey=secretKey;
+    public JwtTokenProvider(@Value("${jwt.secret}") String secretKey) {
+        this.secretKey = secretKey;
     }
     //@PostConstruct
     //protected void init() {secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());}
@@ -44,21 +44,32 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
 
-    public String createToken(Authentication authentication) {
+    public TokenDto createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
-        long tokenValidTime = 30 * 60 * 1000L;
-        Date validity = new Date(now + tokenValidTime);
+        long accessTokenValidTime =  24 *60 * 60 * 1000L;//하루
+        long refreshTokenValidTime = 30*24 * 60 * 60 * 1000L ;//한달
 
-        return Jwts.builder()
+
+        String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
+                .setExpiration(new Date(now + accessTokenValidTime))
                 .compact();
+
+        String refreshToken = Jwts.builder()
+                .setExpiration(new Date(now + refreshTokenValidTime))
+                .signWith(key, SignatureAlgorithm.HS512)
+                .compact();
+
+        return TokenDto.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     public Authentication getAuthentication(String token) {

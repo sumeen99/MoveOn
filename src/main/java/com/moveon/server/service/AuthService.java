@@ -3,6 +3,7 @@ package com.moveon.server.service;
 import com.moveon.server.config.Jwt.JwtTokenProvider;
 import com.moveon.server.dto.LoginDto;
 import com.moveon.server.dto.SignUpDto;
+import com.moveon.server.dto.TokenDto;
 import com.moveon.server.dto.UserResponseDto;
 import com.moveon.server.repository.Authority;
 import com.moveon.server.repository.QueryRepository;
@@ -28,7 +29,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public String login(LoginDto loginDto) {
+    public TokenDto login(LoginDto loginDto) {
         UsernamePasswordAuthenticationToken authenticationToken = loginDto.toAuthentication(); // ID/PW로 AuthenticationToken 생성
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken); // 사용자 비밀번호 체크, CustomUserDetailsService에서의 loadUserByUsername 메서드가 실행됨
         SecurityContextHolder.getContext().setAuthentication(authentication);//securityContext에 저장
