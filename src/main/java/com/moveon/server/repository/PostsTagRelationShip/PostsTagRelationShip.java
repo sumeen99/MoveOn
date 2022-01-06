@@ -37,6 +37,4 @@ public class PostsTagRelationShip extends BaseTimeEntity {
 
 
 
-
-
 }
