@@ -50,8 +50,8 @@ public class JwtTokenProvider implements InitializingBean {
                 .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
-        long accessTokenValidTime =  24 *60 * 60 * 1000L;//하루
-        long refreshTokenValidTime = 30*24 * 60 * 60 * 1000L ;//한달
+        long accessTokenValidTime =  10*60 * 1000L;//하루
+        long refreshTokenValidTime = 30* 60 * 1000L ;//한달
 
 
         String accessToken = Jwts.builder()
@@ -73,12 +73,7 @@ public class JwtTokenProvider implements InitializingBean {
     }
 
     public Authentication getAuthentication(String token) {
-        Claims claims = Jwts
-                .parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims = parseClaims(token);
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
@@ -106,5 +101,11 @@ public class JwtTokenProvider implements InitializingBean {
         return false;
     }
 
-    //
+    private Claims parseClaims(String accessToken) {
+        try {
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        }
+    }
 }

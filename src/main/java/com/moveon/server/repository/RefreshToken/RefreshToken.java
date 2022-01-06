@@ -1,10 +1,12 @@
 package com.moveon.server.repository.RefreshToken;
 
 import com.moveon.server.repository.BaseTimeEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -12,12 +14,14 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Getter
 @Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "refresh_token")
 public class RefreshToken extends BaseTimeEntity {
 
     @Id
-    private String userId;
+    @Column(name="user_email",nullable = false)
+    private String userEmail;
 
     private String token;
 
