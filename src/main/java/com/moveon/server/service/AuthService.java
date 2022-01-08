@@ -67,13 +67,15 @@ public class AuthService {
 
     @Transactional
     public TokenDto reissue(TokenDto tokenDto) {
-        // 1. Refresh Token 검증
-        if (!jwtTokenProvider.validateToken(tokenDto.getRefreshToken())) {
-            throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
-        }
 
         // 2. Access Token 에서 User ID 가져오기
         Authentication authentication = jwtTokenProvider.getAuthentication(tokenDto.getAccessToken());
+
+        // 1. Refresh Token 검증 -> 원래 spring batch나 redis로 주기적으로 만료된 refresh Token을 삭제해주어야하지만, 지금은 우선 유효하지 않을 경우, 저장소에서 검색후 삭제.
+        if (!jwtTokenProvider.validateToken(tokenDto.getRefreshToken())) {
+            refreshTokenRepository.deleteById(authentication.getName());
+            throw new RuntimeException("Refresh Token 이 유효하지 않습니다.");
+        }
 
         // 3. 저장소에서 User ID 를 기반으로 Refresh Token 값 가져옴
         RefreshToken refreshToken = refreshTokenRepository.findByUserEmail(authentication.getName())

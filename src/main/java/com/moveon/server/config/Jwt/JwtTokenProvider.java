@@ -50,8 +50,8 @@ public class JwtTokenProvider implements InitializingBean {
                 .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
-        long accessTokenValidTime =  10*60 * 1000L;//하루
-        long refreshTokenValidTime = 30* 60 * 1000L ;//한달
+        long accessTokenValidTime =  24*60*60 * 1000L;//하루
+        long refreshTokenValidTime = 7*24*60*60 * 1000L;//일주일
 
 
         String accessToken = Jwts.builder()
