@@ -55,6 +55,9 @@ dependencies {
 			"javax.annotation:javax.annotation-api",
 			"com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
 
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+
 }
 
 // QueryDSL

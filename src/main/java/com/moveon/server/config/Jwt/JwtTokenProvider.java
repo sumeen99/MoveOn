@@ -5,7 +5,6 @@ import com.moveon.server.dto.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,8 +49,8 @@ public class JwtTokenProvider implements InitializingBean {
                 .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
-        long accessTokenValidTime =  24*60*60 * 1000L;//하루
-        long refreshTokenValidTime = 7*24*60*60 * 1000L;//일주일
+        long accessTokenValidTime = 24 * 60 * 60 * 1000L;//하루
+        long refreshTokenValidTime = 7 * 24 * 60 * 60 * 1000L;//일주일
 
 
         String accessToken = Jwts.builder()
