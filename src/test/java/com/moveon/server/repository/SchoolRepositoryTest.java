@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Transactional
+//@Transactional
 public class SchoolRepositoryTest {
 
     @Autowired
@@ -19,13 +19,15 @@ public class SchoolRepositoryTest {
     @Test
     public void save(){
         //given
-        String content="이화여자대학교";
+        String content="홍익대학교";
+        String emailForm="hongik.ac.kr";
+
 
         //when
-        School school=schoolRepository.save(School.builder().content(content).build());
+        School school=schoolRepository.save(School.builder().content(content).emailForm(emailForm).build());
 
         //then
         School school1=schoolRepository.findById(school.getId()).orElseThrow(()->new IllegalArgumentException("No School!"));
-        assertThat(school).isEqualTo(school1);
+        assertThat(school.getId()).isEqualTo(school1.getId());
     }
 }

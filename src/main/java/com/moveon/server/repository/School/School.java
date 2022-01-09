@@ -25,10 +25,12 @@ public class School extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name ="school_id")
-    private Collection<Department> departments;
+    @Column(name = "email_form")
+    private String emailForm;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_id")
+    private Collection<Department> departments;
 
 
 }

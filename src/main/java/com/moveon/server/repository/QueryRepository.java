@@ -83,11 +83,26 @@ public class QueryRepository {
             Long userId = i.getUserId();
             Long postId = i.getId();
             User users = queryFactory.selectFrom(user).where(user.id.eq(userId)).fetchOne();
-            postsResponseDtos.add(PostsResponseDto.builder().userId(userId).profileUrl(users.getProfileUrl()).nickname(users.getNickname()).postId(postId).imgUrl(i.getImgUrl()).content(i.getContent()).like(whetherLike(postId, userId)).tags(findTagByPostId(postId)).build());
+            postsResponseDtos.add(
+                    PostsResponseDto.builder()
+                            .userId(userId)
+                            .profileUrl(users.getProfileUrl())
+                            .nickname(users.getNickname())
+                            .postId(postId)
+                            .imgUrl(i.getImgUrl())
+                            .content(i.getContent())
+                            .like(whetherLike(postId, userId))
+                            .tags(findTagByPostId(postId)).build());
         }
         return postsResponseDtos;
     }
 
+    /**
+     * user가 해당 Posts를 좋아요했는지 안했는지 여부
+     * @param postId 해당 postId
+     * @param userId 보고있는 userId
+     * @return true,false 여부
+     */
     public Boolean whetherLike(Long postId, Long userId) {
         return queryFactory.selectFrom(like).where(like.postId.eq(postId), like.userId.eq(userId)).fetchOne() != null;
     }
