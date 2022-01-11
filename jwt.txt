@@ -1,0 +1,12 @@
+1. 로그인할 때, accessToken과 refreshToken을 줌.
+기본적으로 accessToken은 refreshToken보다 유효기간이 짧음.
+ex) 
+access token 만료기간 1일
+refresh token 만료기간 일주일
+-> 2일만에 접속 : access 토큰 만료 + refresh 토큰 정상 -> access 토큰 + refresh 토큰 재발급(결국 refresh 토큰도 일주일간 유효로 재설정됨)
+-> 결국 일주일 안에 한 번 이상 접속이 된다면 로그인 상태는 계속 유지가 됨.
+2. 일반 API사용할때, accessToken 사용
+3. accessToken이 유용하지 않을경우(만료됐을경우), reissue API로 accesstoken과 refreshtoken을 보냄
+4. 해당 사용자정보와 token정보를 확인후, 유효하면 access token과 refreshtoken 다시 보내줌
+5. 클라이언트는 access token과 refresh token을 다시 저장후 사용
+6. refreshtoken이 유효하지 않으면 다시 로그인을 해야함.
