@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MailDto {
     private String address;
+    private String school;
 }
 
 

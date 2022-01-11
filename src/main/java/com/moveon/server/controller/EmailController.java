@@ -18,6 +18,6 @@ public class EmailController {
 
     @PostMapping("/email")
     public ResponseEntity<String> sendEmail(@RequestBody MailDto mailDto) throws Exception {
-        return ResponseEntity.ok(emailService.sendSimpleMessage(mailDto.getAddress()));
+        return ResponseEntity.ok(emailService.sendSimpleMessage(mailDto));
     }
 }

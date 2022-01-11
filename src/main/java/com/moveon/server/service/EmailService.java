@@ -1,5 +1,7 @@
 package com.moveon.server.service;
 
+import com.moveon.server.dto.MailDto;
+import com.moveon.server.repository.School.SchoolRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,8 +15,9 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class EmailService {
     private final JavaMailSender emailSender;
+    private final SchoolRepository schoolRepository;
 
-    private MimeMessage createMessage(String to,String code) throws Exception {
+    private MimeMessage createMessage(String to, String code) throws Exception {
 
         MimeMessage message = emailSender.createMimeMessage();
 
@@ -46,11 +49,14 @@ public class EmailService {
         return key.toString();
     }
 
-    public String sendSimpleMessage(String to) throws Exception {
+    public String sendSimpleMessage(MailDto mailDto) throws Exception {
+        if (!mailDto.getAddress().contains(schoolRepository.findByContent(mailDto.getSchool()).getEmailForm())) {
+            throw new RuntimeException("학교 메일 형식이 다릅니다.");
+        }
         String code = createKey();
-        MimeMessage message = createMessage(to,code);
+
         try {//예외처리
-            emailSender.send(message);
+            emailSender.send(createMessage(mailDto.getAddress(), code));
             return code;
         } catch (MailException es) {
             es.printStackTrace();
