@@ -33,8 +33,6 @@ public class JwtTokenProvider implements InitializingBean {
     public JwtTokenProvider(@Value("${jwt.secret}") String secretKey) {
         this.secretKey = secretKey;
     }
-    //@PostConstruct
-    //protected void init() {secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());}
 
     @Override
     public void afterPropertiesSet() {
