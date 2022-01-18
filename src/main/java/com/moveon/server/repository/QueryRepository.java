@@ -1,7 +1,10 @@
 package com.moveon.server.repository;
 
+import com.moveon.server.dto.CommentsResponseDto;
 import com.moveon.server.dto.PostsListResponseDto;
 import com.moveon.server.dto.TagPostsResponseDto;
+import com.moveon.server.repository.Comments.Comments;
+import com.moveon.server.repository.Comments.CommentsRepository;
 import com.moveon.server.repository.Posts.Posts;
 import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShip;
 import com.moveon.server.repository.School.School;
@@ -21,11 +24,13 @@ import static com.moveon.server.repository.PostsTagRelationShip.QPostsTagRelatio
 import static com.moveon.server.repository.School.QSchool.school;
 import static com.moveon.server.repository.Tag.QTag.tag;
 import static com.moveon.server.repository.User.QUser.user;
+import static com.moveon.server.repository.Comments.QComments.comments;
 
 @RequiredArgsConstructor
 @Repository
 public class QueryRepository {
     private final JPAQueryFactory queryFactory;
+    private final CommentsRepository commentsRepository;
 
 
     public School findByContent(String content) {
@@ -92,10 +97,14 @@ public class QueryRepository {
                             .imgUrl(i.getImgUrl())
                             .content(i.getContent())
                             .like(whetherLike(postId, userId))
-                            .tags(findTagByPostId(postId)).build());
+                            .tags(findTagByPostId(postId))
+                            .createdDate(i.getCreatedDate())
+                            .build());
         }
         return postsListResponseDtos;
     }
+
+
 
     /**
      * user가 해당 Posts를 좋아요했는지 안했는지 여부
@@ -112,6 +121,16 @@ public class QueryRepository {
                 JPAExpressions.select(postsTagRelationShip.tagId).from(postsTagRelationShip)
                         .where(postsTagRelationShip.postId.eq(postId))
         )).fetch();
+    }
+
+    public List<CommentsResponseDto> findAllCommentsByPostId(Long postId){
+        queryFactory.selectFrom(comments).where(comments.postId.eq(postId), comments.classNum.eq(0)).fetch().stream().
+
+    }
+
+    public List<CommentsResponseDto> findAllSubCommentsByGroupId(int groupId, Long postId){
+        return queryFactory.selectFrom(comments).where(comments.postId.eq(postId), comments.groupId.eq(groupId)).fetch()
+                .stream().forEach(x-> x.toCommentsResponseDto(commentsRepository.findCommentsById(comments.id)));
     }
 
 

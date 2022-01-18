@@ -1,6 +1,7 @@
 package com.moveon.server.repository.Comments;
 
 
+import com.moveon.server.dto.CommentsResponseDto;
 import com.moveon.server.repository.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,6 +47,14 @@ public class Comments extends BaseTimeEntity {
     private int groupId;
 
 
+    public CommentsResponseDto toCommentsResponseDto(String nickname){
+        return CommentsResponseDto.builder()
+                .userId(userId)
+                .nickname(nickname)
+                .content(content)
+                .createdDate(getCreatedDate())
+                .build();
+    }
 
 
 

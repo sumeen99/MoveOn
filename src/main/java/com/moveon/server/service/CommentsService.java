@@ -20,7 +20,7 @@ public class CommentsService {
     }
 
     @Transactional
-    public List<Comments>(Long postId){
+    public List<Comments> selectComments(Long postId){
 
     }
 

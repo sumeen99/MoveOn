@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,4 +20,6 @@ public class PostsListResponseDto {
     private final String content;
     private final Boolean like;
     private final List<Tag> tags;
+    private final LocalDateTime createdDate;
+
 }
