@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class LoginDto {
 
+    @Email
     @NotNull
     private String email;
 

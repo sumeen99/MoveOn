@@ -1,6 +1,6 @@
 package com.moveon.server.repository;
 
-import com.moveon.server.dto.PostsResponseDto;
+import com.moveon.server.dto.PostsListResponseDto;
 import com.moveon.server.dto.TagPostsResponseDto;
 import com.moveon.server.repository.Posts.Posts;
 import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShip;
@@ -76,15 +76,15 @@ public class QueryRepository {
         return tagPostsResponseDtos;
     }
 
-    public List<PostsResponseDto> findPostsByDepartmentId(Long departmentId, int size) {
+    public List<PostsListResponseDto> findPostsByDepartmentId(Long departmentId, int size) {
         List<Posts> post = queryFactory.selectFrom(posts).where(posts.departmentId.eq(departmentId)).limit(size).orderBy(posts.createdDate.desc()).fetch();
-        List<PostsResponseDto> postsResponseDtos = new ArrayList<>();
+        List<PostsListResponseDto> postsListResponseDtos = new ArrayList<>();
         for (Posts i : post) {
             Long userId = i.getUserId();
             Long postId = i.getId();
             User users = queryFactory.selectFrom(user).where(user.id.eq(userId)).fetchOne();
-            postsResponseDtos.add(
-                    PostsResponseDto.builder()
+            postsListResponseDtos.add(
+                    PostsListResponseDto.builder()
                             .userId(userId)
                             .profileUrl(users.getProfileUrl())
                             .nickname(users.getNickname())
@@ -94,7 +94,7 @@ public class QueryRepository {
                             .like(whetherLike(postId, userId))
                             .tags(findTagByPostId(postId)).build());
         }
-        return postsResponseDtos;
+        return postsListResponseDtos;
     }
 
     /**
@@ -113,5 +113,7 @@ public class QueryRepository {
                         .where(postsTagRelationShip.postId.eq(postId))
         )).fetch();
     }
+
+
 
 }
