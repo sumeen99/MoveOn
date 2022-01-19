@@ -17,15 +17,8 @@ public class CommentsResponseDto {
     private Long userId;
     private String nickname;
     private String content;
-    private List<CommentsResponseDto> commentsResponseDtoList;
     private LocalDateTime createdDate;
+    private List<CommentsResponseDto> commentsResponseDtoList;
 
-    public CommentsResponseDto toCommentsResponseDto(Comments comments,String nickname){
-        return CommentsResponseDto.builder()
-                .userId(comments.getUserId())
-                .nickname(nickname)
-                .content(comments.getContent())
-                .createdDate(comments.getCreatedDate())
-                .build();
-    }
+
 }

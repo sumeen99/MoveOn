@@ -10,6 +10,7 @@ import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShip;
 import com.moveon.server.repository.School.School;
 import com.moveon.server.repository.Tag.Tag;
 import com.moveon.server.repository.User.User;
+import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -105,12 +106,12 @@ public class QueryRepository {
     }
 
 
-
     /**
      * user가 해당 Posts를 좋아요했는지 안했는지 여부
+     *
      * @param postId 해당 postId
      * @param userId 보고있는 userId
-     * @return true,false 여부
+     * @return true, false 여부
      */
     public Boolean whetherLike(Long postId, Long userId) {
         return queryFactory.selectFrom(like).where(like.postId.eq(postId), like.userId.eq(userId)).fetchOne() != null;
@@ -123,16 +124,42 @@ public class QueryRepository {
         )).fetch();
     }
 
-    public List<CommentsResponseDto> findAllCommentsByPostId(Long postId){
-        queryFactory.selectFrom(comments).where(comments.postId.eq(postId), comments.classNum.eq(0)).fetch().stream().
+    /**
+     * 주댓글가져오기
+     * @param postId
+     * @return
+     */
+    public List<CommentsResponseDto> findAllCommentsByPostId(Long postId) {
+        List<CommentsResponseDto> commentsResponseDtoList = new ArrayList<>();
+        queryFactory.selectFrom(comments).where(comments.postId.eq(postId), comments.classNum.eq(0)).fetch()
+                .forEach(x->commentsResponseDtoList.add(
+                        x.toCommentsResponseDto(findNicknameByUserId(x.getUserId()),findAllSubCommentsByGroupId(comments.groupId,comments.postId))));
+        return commentsResponseDtoList;
 
     }
 
-    public List<CommentsResponseDto> findAllSubCommentsByGroupId(int groupId, Long postId){
-        return queryFactory.selectFrom(comments).where(comments.postId.eq(postId), comments.groupId.eq(groupId)).fetch()
-                .stream().forEach(x-> x.toCommentsResponseDto(commentsRepository.findCommentsById(comments.id)));
+    /**
+     * 대댓글가져오기
+     * @param groupId
+     * @param postId
+     * @return
+     */
+    public List<CommentsResponseDto> findAllSubCommentsByGroupId(NumberPath<Integer> groupId, NumberPath<Long> postId) {
+        List<CommentsResponseDto> commentsResponseDtoList = new ArrayList<>();
+        queryFactory.selectFrom(comments).where(comments.postId.eq(postId), comments.groupId.eq(groupId), comments.classNum.eq(1)).fetch()
+                .forEach(x -> commentsResponseDtoList.add(x.toSubCommentsResponseDto(findNicknameByUserId(x.getUserId()))));
+
+        return commentsResponseDtoList;
     }
 
+    /**
+     * userId로 닉네임가져오기
+     * @param id id는 어느 테이블이든 상관없이 되게 해놨음.
+     * @return 닉네임
+     */
+    public String findNicknameByUserId(Long id) {
+        return queryFactory.select(user.nickname).from(user).where(user.id.eq(id)).fetchOne();
+    }
 
 
 }

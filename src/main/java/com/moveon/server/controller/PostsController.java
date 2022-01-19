@@ -21,7 +21,7 @@ public class PostsController {
     }
 
     @ResponseBody
-    @PostMapping("/api/v1/posts/select")
+    @PostMapping("/api/v1/posts/save")
     public Long save(@RequestBody PostsRequestDto postsRequestDto) {
         return postsService.postsSave(postsRequestDto);
     }

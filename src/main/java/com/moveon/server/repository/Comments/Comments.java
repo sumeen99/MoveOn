@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Entity
@@ -47,7 +48,17 @@ public class Comments extends BaseTimeEntity {
     private int groupId;
 
 
-    public CommentsResponseDto toCommentsResponseDto(String nickname){
+    public CommentsResponseDto toCommentsResponseDto(String nickname, List<CommentsResponseDto> commentsResponseDtoList){
+        return CommentsResponseDto.builder()
+                .userId(userId)
+                .nickname(nickname)
+                .content(content)
+                .createdDate(getCreatedDate())
+                .commentsResponseDtoList(commentsResponseDtoList)
+                .build();
+    }
+
+    public CommentsResponseDto toSubCommentsResponseDto(String nickname){
         return CommentsResponseDto.builder()
                 .userId(userId)
                 .nickname(nickname)
