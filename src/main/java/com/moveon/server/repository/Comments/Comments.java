@@ -45,7 +45,7 @@ public class Comments extends BaseTimeEntity {
     private int num;
 
     @Column(name="group_id",nullable = false)
-    private int groupId;
+    private Long groupId;
 
 
     public CommentsResponseDto toCommentsResponseDto(String nickname, List<CommentsResponseDto> commentsResponseDtoList){
@@ -54,6 +54,8 @@ public class Comments extends BaseTimeEntity {
                 .nickname(nickname)
                 .content(content)
                 .createdDate(getCreatedDate())
+                .groupId(groupId)
+                .num(num)
                 .commentsResponseDtoList(commentsResponseDtoList)
                 .build();
     }
@@ -64,7 +66,13 @@ public class Comments extends BaseTimeEntity {
                 .nickname(nickname)
                 .content(content)
                 .createdDate(getCreatedDate())
+                .groupId(groupId)
+                .num(num)
                 .build();
+    }
+
+    public void updateGroupId(){
+        this.groupId=this.id;
     }
 
 

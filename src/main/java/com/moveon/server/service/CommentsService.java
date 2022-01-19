@@ -19,7 +19,11 @@ public class CommentsService {
 
     @Transactional
     public Long commentsSave(CommentsRequestDto commentsRequestDto){
-        return commentsRepository.save(commentsRequestDto.toComments()).getId();
+        Comments comments = commentsRepository.save(commentsRequestDto.toComments());
+         if(comments.getClassNum()==0){
+            comments.updateGroupId();
+         }
+         return comments.getId();
     }
 
     @Transactional

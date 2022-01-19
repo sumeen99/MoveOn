@@ -17,6 +17,8 @@ public class CommentsResponseDto {
     private Long userId;
     private String nickname;
     private String content;
+    private int num;
+    private Long groupId;
     private LocalDateTime createdDate;
     private List<CommentsResponseDto> commentsResponseDtoList;
 

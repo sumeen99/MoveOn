@@ -16,7 +16,7 @@ public class CommentsRequestDto {
     private String content;
     private int classNum;
     private int num;
-    private int groupId;
+    private Long groupId;
 
     public Comments toComments(){
         return Comments.builder()
