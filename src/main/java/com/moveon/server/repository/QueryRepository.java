@@ -133,7 +133,7 @@ public class QueryRepository {
         List<CommentsResponseDto> commentsResponseDtoList = new ArrayList<>();
         queryFactory.selectFrom(comments).where(comments.postId.eq(postId), comments.classNum.eq(0)).fetch()
                 .forEach(x->commentsResponseDtoList.add(
-                        x.toCommentsResponseDto(findNicknameByUserId(x.getUserId()),findAllSubCommentsByGroupId(comments.groupId,comments.postId))));
+                        x.toCommentsResponseDto(findNicknameByUserId(x.getUserId()),findAllSubCommentsByGroupId(x.getGroupId(),x.getPostId()))));
         return commentsResponseDtoList;
 
     }
@@ -144,7 +144,7 @@ public class QueryRepository {
      * @param postId
      * @return
      */
-    public List<CommentsResponseDto> findAllSubCommentsByGroupId(NumberPath<Integer> groupId, NumberPath<Long> postId) {
+    public List<CommentsResponseDto> findAllSubCommentsByGroupId(Long groupId, Long postId) {
         List<CommentsResponseDto> commentsResponseDtoList = new ArrayList<>();
         queryFactory.selectFrom(comments).where(comments.postId.eq(postId), comments.groupId.eq(groupId), comments.classNum.eq(1)).fetch()
                 .forEach(x -> commentsResponseDtoList.add(x.toSubCommentsResponseDto(findNicknameByUserId(x.getUserId()))));
