@@ -13,6 +13,7 @@ public class CommentsRequestDto {
     private Long departmentId;
     private Long userId;
     private Long postId;
+    private String nickname;
     private String content;
     private int classNum;
     private int num;
@@ -24,6 +25,7 @@ public class CommentsRequestDto {
                 .departmentId(departmentId)
                 .userId(userId)
                 .postId(postId)
+                .nickname(nickname)
                 .content(content)
                 .classNum(classNum)
                 .num(num)

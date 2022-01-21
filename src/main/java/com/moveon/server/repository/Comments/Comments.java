@@ -36,6 +36,9 @@ public class Comments extends BaseTimeEntity {
     private Long userId;
 
     @Column(nullable = false)
+    private String nickname;
+
+    @Column(nullable = false)
     private String content;
 
     @Column(name="class",nullable = false)
@@ -48,7 +51,7 @@ public class Comments extends BaseTimeEntity {
     private Long groupId;
 
 
-    public CommentsResponseDto toCommentsResponseDto(String nickname, List<CommentsResponseDto> commentsResponseDtoList){
+    public CommentsResponseDto toCommentsResponseDto(List<CommentsResponseDto> commentsResponseDtoList){
         return CommentsResponseDto.builder()
                 .userId(userId)
                 .nickname(nickname)
@@ -60,7 +63,7 @@ public class Comments extends BaseTimeEntity {
                 .build();
     }
 
-    public CommentsResponseDto toSubCommentsResponseDto(String nickname){
+    public CommentsResponseDto toSubCommentsResponseDto(){
         return CommentsResponseDto.builder()
                 .userId(userId)
                 .nickname(nickname)
