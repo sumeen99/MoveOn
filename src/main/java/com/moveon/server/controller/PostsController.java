@@ -1,7 +1,7 @@
 package com.moveon.server.controller;
 
-import com.moveon.server.dto.PostsRequestDto;
 import com.moveon.server.dto.PostsListResponseDto;
+import com.moveon.server.dto.PostsRequestDto;
 import com.moveon.server.service.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

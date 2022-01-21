@@ -37,5 +37,9 @@ ex)
 8.[POST]게시글 작성API
 ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts/save
 {
-"schoolId":
+"schoolId":"1",
+"departmentId":"2",
+"userId":"2",
+""content":"",
+"imgUrl":""
 }
