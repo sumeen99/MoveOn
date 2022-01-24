@@ -43,7 +43,7 @@ ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts/
 "content":"배고파ㅠㅠㅠㅠㅠㅠ",
 "imgUrl":""(이건 있으면 쓰고 없으면 no~)
 }
-이런식으로 보내면 해당 postsId가 return됩니다~!
+이런식으로 보내면 해당 postsId가 return됩니다~! 근데 지금 내가 여기에 nickname도 받을까말까 고민중이라 추후 수정될 수도 있음
 
 9.[POST]댓글 작성 API
 ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/comments/save
@@ -65,6 +65,36 @@ groupId는 댓글이면 아무것도 안써주면되고 대댓글이면 대댓�
 
 10.[GET]댓글 조회 API
 ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/comments/select?post-id=2(해당 부분에 댓글조회하고 싶은 게시글id넣어줘야함)
+조회할 경우,
+    {
+        "userId": 2,
+        "nickname": "나는야쥼",
+        "content": "그러게 말이야ㅠㅠㅠ 나도ㅠ",
+        "num": 0,
+        "groupId": 1,
+        "createdDate": "2022-01-20T01:49:28",
+        "commentsResponseDtoList": [
+            {
+                "userId": 3,
+                "nickname": "나는야숨",
+                "content": "아냐 어차피 시간은 갔으니 펑펑 놀자",
+                "num": 1,
+                "groupId": 1,
+                "createdDate": "2022-01-20T01:54:15",
+                "commentsResponseDtoList": null
+            }
+        ]
+    },
+    {
+        "userId": 9,
+        "nickname": "익명",
+        "content": "호호 나는 나름 의미있게 보냈지롱",
+        "num": 2,
+        "groupId": 6,
+        "createdDate": "2022-01-22T03:56:06",
+        "commentsResponseDtoList": []
+    }
+이런식으로 댓글과 대댓글이 나뉘게 됨! num부분은 우선 신경노노! 
 
 
 
