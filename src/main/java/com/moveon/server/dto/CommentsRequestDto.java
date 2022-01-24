@@ -16,7 +16,6 @@ public class CommentsRequestDto {
     private String nickname;
     private String content;
     private int classNum;
-    private int num;
     private Long groupId;
 
     public Comments toComments(){
@@ -28,7 +27,6 @@ public class CommentsRequestDto {
                 .nickname(nickname)
                 .content(content)
                 .classNum(classNum)
-                .num(num)
                 .groupId(groupId)
                 .build();
     }

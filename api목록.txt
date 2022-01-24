@@ -40,6 +40,31 @@ ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts/
 "schoolId":"1",
 "departmentId":"2",
 "userId":"2",
-""content":"",
-"imgUrl":""
+"content":"배고파ㅠㅠㅠㅠㅠㅠ",
+"imgUrl":""(이건 있으면 쓰고 없으면 no~)
 }
+이런식으로 보내면 해당 postsId가 return됩니다~!
+
+9.[POST]댓글 작성 API
+ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/comments/save
+{
+"schoolId":"1",
+"departmentId":"2",
+"userId":"3",
+"postId":"2",
+"nickname":"나는야숨",
+"content":"배고파ㅠㅠㅠㅠㅠㅠ",
+"classNum":"0",
+"groupId":"2"
+}
+이런식으로 보내면 해당 commentsId가 return됩니다~!
+댓글부분 알아야할 정보
+classNum은 댓글이면 0 대댓글이면 1을 넣어주면 됨.
+groupId는 댓글이면 아무것도 안써주면되고 대댓글이면 대댓글의 부모인 댓글의 Id를 넣어주면된다.
+
+
+10.[GET]댓글 조회 API
+ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/comments/select?post-id=2(해당 부분에 댓글조회하고 싶은 게시글id넣어줘야함)
+
+
+
