@@ -42,8 +42,6 @@ public class Posts extends BaseTimeEntity {
     @Column(name = "img_url")
     private String imgUrl;
 
-    private String nickname;
-
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
     private Collection<Comments> comments;
