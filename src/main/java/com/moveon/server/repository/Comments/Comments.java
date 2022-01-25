@@ -58,7 +58,6 @@ public class Comments extends BaseTimeEntity {
                 .content(content)
                 .createdDate(getCreatedDate())
                 .groupId(groupId)
-                .num(num)
                 .commentsResponseDtoList(commentsResponseDtoList)
                 .build();
     }
@@ -70,7 +69,6 @@ public class Comments extends BaseTimeEntity {
                 .content(content)
                 .createdDate(getCreatedDate())
                 .groupId(groupId)
-                .num(num)
                 .build();
     }
 
