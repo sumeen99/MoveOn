@@ -1,9 +1,9 @@
 1.[GET] 태그API(department_id)(근데 이거 그냥 예시 태그면 나중에 id필요없이 그냥 너가 고정으로 해놓거나 내가 고정으로 해놔도 될듯)
-http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/tag/select?department_id=2
+http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/tag/select?department-id=2
 2.[GET] 태그관련 게시글(department_id,size)
-ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts_tag_relationship/select?department_id=2&size=2
+ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts-tag-relationship/select?department-id=2&size=2
 3.[GET] 게시글API(department_id,size)
-ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts/select?department_id=2&size=2
+ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/posts/select?department-id=2&size=2&user-id=10
 4.[POST] 회원가입API
 ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/auth/signup
 이지만, Body부분에 email,password,name,school을 포함한 것을 JSON형식으로 보내줘야함
@@ -17,7 +17,7 @@ ex){
 5.[POST]로그인API
 ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/auth/login
 를 하면 accesstoken과 refreshToken을 얻음. accesstoken의 유효기간은 1일 refreshToken의 유효기간은 일주일!
-refresh토큰과 access토큰을 어떻게 쓸지는 다른 메모장에서!
+refresh토큰과 access토큰을 어떻게 쓸지는 다른 메모장에서! userId가 return 됨
 
 6.[POST]토큰재발급API
 ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/auth/reissue
@@ -94,7 +94,7 @@ ex)http://ec2-3-34-56-36.ap-northeast-2.compute.amazonaws.com:8080/api/v1/commen
         "createdDate": "2022-01-22T03:56:06",
         "commentsResponseDtoList": []
     }
-이런식으로 댓글과 대댓글이 나뉘게 됨! num부분은 우선 신경노노! 
+profileUrl 추가됨
 
 
 

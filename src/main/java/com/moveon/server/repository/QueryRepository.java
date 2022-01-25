@@ -3,14 +3,13 @@ package com.moveon.server.repository;
 import com.moveon.server.dto.CommentsResponseDto;
 import com.moveon.server.dto.PostsListResponseDto;
 import com.moveon.server.dto.TagPostsResponseDto;
-import com.moveon.server.repository.Comments.Comments;
 import com.moveon.server.repository.Comments.CommentsRepository;
 import com.moveon.server.repository.Posts.Posts;
 import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShip;
 import com.moveon.server.repository.School.School;
 import com.moveon.server.repository.Tag.Tag;
 import com.moveon.server.repository.User.User;
-import com.querydsl.core.types.dsl.NumberPath;
+import com.moveon.server.repository.User.UserRepository;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -19,19 +18,20 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.moveon.server.repository.Comments.QComments.comments;
 import static com.moveon.server.repository.Like.QLike.like;
 import static com.moveon.server.repository.Posts.QPosts.posts;
 import static com.moveon.server.repository.PostsTagRelationShip.QPostsTagRelationShip.postsTagRelationShip;
 import static com.moveon.server.repository.School.QSchool.school;
 import static com.moveon.server.repository.Tag.QTag.tag;
 import static com.moveon.server.repository.User.QUser.user;
-import static com.moveon.server.repository.Comments.QComments.comments;
 
 @RequiredArgsConstructor
 @Repository
 public class QueryRepository {
     private final JPAQueryFactory queryFactory;
     private final CommentsRepository commentsRepository;
+    private final UserRepository userRepository;
 
 
     public School findByContent(String content) {
@@ -82,7 +82,7 @@ public class QueryRepository {
         return tagPostsResponseDtos;
     }
 
-    public List<PostsListResponseDto> findPostsByDepartmentId(Long departmentId, int size) {
+    public List<PostsListResponseDto> findPostsByDepartmentId(Long departmentId, int size, Long currentUserId) {
         List<Posts> post = queryFactory.selectFrom(posts).where(posts.departmentId.eq(departmentId)).limit(size).orderBy(posts.createdDate.desc()).fetch();
         List<PostsListResponseDto> postsListResponseDtos = new ArrayList<>();
         for (Posts i : post) {
@@ -97,7 +97,7 @@ public class QueryRepository {
                             .postId(postId)
                             .imgUrl(i.getImgUrl())
                             .content(i.getContent())
-                            .like(whetherLike(postId, userId))
+                            .like(whetherLike(postId, currentUserId))
                             .tags(findTagByPostId(postId))
                             .createdDate(i.getCreatedDate())
                             .build());
@@ -126,20 +126,26 @@ public class QueryRepository {
 
     /**
      * 주댓글가져오기
+     *
      * @param postId
      * @return
      */
     public List<CommentsResponseDto> findAllCommentsByPostId(Long postId) {
         List<CommentsResponseDto> commentsResponseDtoList = new ArrayList<>();
         queryFactory.selectFrom(comments).where(comments.postId.eq(postId), comments.classNum.eq(0)).fetch()
-                .forEach(x->commentsResponseDtoList.add(
-                        x.toCommentsResponseDto(findAllSubCommentsByGroupId(x.getGroupId(),x.getPostId()))));
+                .forEach(x -> commentsResponseDtoList.add(
+                        x.toCommentsResponseDto(findAllSubCommentsByGroupId(x.getGroupId(), x.getPostId())
+                                , userRepository.findById(x.getUserId()).orElseThrow(() -> new IllegalArgumentException("NO USER"))
+                        )
+                        )
+                );
         return commentsResponseDtoList;
 
     }
 
     /**
      * 대댓글가져오기
+     *
      * @param groupId
      * @param postId
      * @return
@@ -147,13 +153,18 @@ public class QueryRepository {
     public List<CommentsResponseDto> findAllSubCommentsByGroupId(Long groupId, Long postId) {
         List<CommentsResponseDto> commentsResponseDtoList = new ArrayList<>();
         queryFactory.selectFrom(comments).where(comments.postId.eq(postId), comments.groupId.eq(groupId), comments.classNum.eq(1)).fetch()
-                .forEach(x -> commentsResponseDtoList.add(x.toSubCommentsResponseDto()));
+                .forEach(x -> commentsResponseDtoList.add(
+                        x.toSubCommentsResponseDto(
+                                userRepository.findById(x.getUserId()).orElseThrow(() -> new IllegalArgumentException("NO USER"))
+                        ))
+                );
 
         return commentsResponseDtoList;
     }
 
     /**
      * userId로 닉네임가져오기
+     *
      * @param id id는 어느 테이블이든 상관없이 되게 해놨음.
      * @return 닉네임
      */
@@ -163,10 +174,11 @@ public class QueryRepository {
 
     /**
      * email로 id가져오기
+     *
      * @param email
      * @return
      */
-    public Long findUserIdByUserEmail(String email){
+    public Long findUserIdByUserEmail(String email) {
         return queryFactory.select(user.id).from(user).where(user.email.eq(email)).fetchOne();
     }
 

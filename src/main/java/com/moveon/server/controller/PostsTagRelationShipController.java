@@ -16,9 +16,9 @@ public class PostsTagRelationShipController {
     private final PostsTagRelationShipService postsTagRelationShipService;
 
     @ResponseBody
-    @GetMapping("/api/v1/posts_tag_relationship/select")
-    public List<TagPostsResponseDto> select(@RequestParam("department_id")Long departmentId, @RequestParam("size") int size){
-        return postsTagRelationShipService.selectTagPosts(departmentId,size);
+    @GetMapping("/api/v1/posts-tag-relationship/select")
+    public List<TagPostsResponseDto> select(@RequestParam("department-id") Long departmentId, @RequestParam("size") int size) {
+        return postsTagRelationShipService.selectTagPosts(departmentId, size);
     }
 
 }

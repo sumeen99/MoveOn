@@ -3,6 +3,7 @@ package com.moveon.server.repository.Comments;
 
 import com.moveon.server.dto.CommentsResponseDto;
 import com.moveon.server.repository.BaseTimeEntity;
+import com.moveon.server.repository.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,10 +52,11 @@ public class Comments extends BaseTimeEntity {
     private Long groupId;
 
 
-    public CommentsResponseDto toCommentsResponseDto(List<CommentsResponseDto> commentsResponseDtoList){
+    public CommentsResponseDto toCommentsResponseDto(List<CommentsResponseDto> commentsResponseDtoList, User user){
         return CommentsResponseDto.builder()
                 .userId(userId)
-                .nickname(nickname)
+                .nickname(user.getNickname())
+                .profileUrl(user.getProfileUrl())
                 .content(content)
                 .createdDate(getCreatedDate())
                 .groupId(groupId)
@@ -62,11 +64,13 @@ public class Comments extends BaseTimeEntity {
                 .build();
     }
 
-    public CommentsResponseDto toSubCommentsResponseDto(){
+    public CommentsResponseDto toSubCommentsResponseDto(User user){
         return CommentsResponseDto.builder()
                 .userId(userId)
                 .nickname(nickname)
                 .content(content)
+                .nickname(user.getNickname())
+                .profileUrl(user.getProfileUrl())
                 .createdDate(getCreatedDate())
                 .groupId(groupId)
                 .build();

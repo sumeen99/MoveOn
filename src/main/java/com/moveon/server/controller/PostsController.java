@@ -16,8 +16,8 @@ public class PostsController {
 
     @ResponseBody
     @GetMapping("/api/v1/posts/select")
-    public List<PostsListResponseDto> select(@RequestParam("department_id") Long departmentId, @RequestParam("size") int size) {
-        return postsService.selectPosts(departmentId, size);
+    public List<PostsListResponseDto> select(@RequestParam("department-id") Long departmentId, @RequestParam("size") int size, @RequestParam("user-id") Long currentUserId) {
+        return postsService.selectPosts(departmentId, size, currentUserId);
     }
 
     @ResponseBody

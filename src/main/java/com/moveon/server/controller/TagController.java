@@ -19,7 +19,7 @@ public class TagController {
 
     @ResponseBody
     @GetMapping("/api/v1/tag/select")
-    public List<Tag> select(@RequestParam("department_id")Long departmentId){
+    public List<Tag> select(@RequestParam("department-id")Long departmentId){
         return tagService.selectTags(departmentId);
     }
 

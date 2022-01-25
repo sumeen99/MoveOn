@@ -19,6 +19,7 @@ public class CommentsResponseDto {
     private String content;
     private Long groupId;
     private LocalDateTime createdDate;
+    private String profileUrl;
     private List<CommentsResponseDto> commentsResponseDtoList;
 
 

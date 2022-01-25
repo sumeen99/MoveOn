@@ -21,8 +21,8 @@ public class LikeRepositoryTest {
         //given
         Long schoolId=1L;
         Long departmentId=2L;
-        Long postId=2L;
-        Long userId=2L;
+        Long postId=6L;
+        Long userId=10L;
         //when
         Like like= Like.builder().schoolId(schoolId).departmentId(departmentId).postId(postId).userId(userId).build();
         likeRepository.save(like);

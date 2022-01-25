@@ -1,7 +1,7 @@
 package com.moveon.server.service;
 
-import com.moveon.server.dto.PostsRequestDto;
 import com.moveon.server.dto.PostsListResponseDto;
+import com.moveon.server.dto.PostsRequestDto;
 import com.moveon.server.repository.Posts.PostsRepository;
 import com.moveon.server.repository.QueryRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,17 +16,13 @@ public class PostsService {
     private final PostsRepository postsRepository;
     private final QueryRepository queryRepository;
 
-    public List<PostsListResponseDto> selectPosts(Long departmentId, int size){
-        return queryRepository.findPostsByDepartmentId(departmentId,size);
+    public List<PostsListResponseDto> selectPosts(Long departmentId, int size, Long currentUserId) {
+        return queryRepository.findPostsByDepartmentId(departmentId, size, currentUserId);
     }
 
-    public Long postsSave(PostsRequestDto postsRequestDto){
+    public Long postsSave(PostsRequestDto postsRequestDto) {
         return postsRepository.save(postsRequestDto.toPosts()).getId();
     }
-
-
-
-
 
 
 }
