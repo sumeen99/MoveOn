@@ -161,5 +161,14 @@ public class QueryRepository {
         return queryFactory.select(user.nickname).from(user).where(user.id.eq(id)).fetchOne();
     }
 
+    /**
+     * email로 id가져오기
+     * @param email
+     * @return
+     */
+    public Long findUserIdByUserEmail(String email){
+        return queryFactory.select(user.id).from(user).where(user.email.eq(email)).fetchOne();
+    }
+
 
 }

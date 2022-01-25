@@ -42,7 +42,7 @@ public class AuthService {
                 .userEmail(authentication.getName())
                 .token(tokenDto.getRefreshToken())
                 .build();
-
+        tokenDto.updateUserId(queryRepository.findUserIdByUserEmail(authentication.getName()));
         refreshTokenRepository.save(refreshToken);
         return tokenDto;
 

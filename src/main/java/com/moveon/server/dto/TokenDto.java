@@ -12,4 +12,9 @@ import lombok.NoArgsConstructor;
 public class TokenDto {
     private String accessToken;
     private String refreshToken;
+    private Long userId;
+
+    public void updateUserId(Long userId) {
+        this.userId = userId;
+    }
 }
