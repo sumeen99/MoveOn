@@ -57,13 +57,6 @@ public class QueryRepositoryTest {
         assertThat(tags.get(tags.size()-1).getId()).isEqualTo(postsTagRelationShip.getId());
     }
 
-    @Test
-    public void  findTagPostsByDepartmentId(){
-        //given
 
-        //when
-        //then
-
-    }
 
 }

@@ -18,14 +18,15 @@ public class TagRepositoryTest {
 
 
     @Test
-    public void save(){
+    public void save() {
         //given
-        String content="선거";
+        String content = "선거";
+
         //when
-        Tag realTag=tagRepository.save(Tag.builder().content(content).build());
+        Tag realTag = tagRepository.save(Tag.builder().content(content).build());
 
         //then
-        Tag tag=tagRepository.findById(realTag.getId()).orElseThrow(()->new IllegalArgumentException("NO TAG"));
+        Tag tag = tagRepository.findById(realTag.getId()).orElseThrow(() -> new IllegalArgumentException("NO TAG"));
         assertThat(tag).isEqualTo(realTag);
     }
 }

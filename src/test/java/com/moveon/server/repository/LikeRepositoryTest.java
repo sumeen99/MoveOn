@@ -17,17 +17,19 @@ public class LikeRepositoryTest {
     LikeRepository likeRepository;
 
     @Test
-    public void save(){
+    public void save() {
         //given
-        Long schoolId=1L;
-        Long departmentId=2L;
-        Long postId=6L;
-        Long userId=10L;
+        Long schoolId = 1L;
+        Long departmentId = 2L;
+        Long postId = 6L;
+        Long userId = 10L;
+
         //when
-        Like like= Like.builder().schoolId(schoolId).departmentId(departmentId).postId(postId).userId(userId).build();
+        Like like = Like.builder().schoolId(schoolId).departmentId(departmentId).postId(postId).userId(userId).build();
         likeRepository.save(like);
+
         //then
-        Like like1= likeRepository.findById(like.getId()).orElseThrow(()->new IllegalArgumentException("NO LIKE"));
+        Like like1 = likeRepository.findById(like.getId()).orElseThrow(() -> new IllegalArgumentException("NO LIKE"));
         assertThat(like1.getId()).isEqualTo(like.getId());
     }
 }

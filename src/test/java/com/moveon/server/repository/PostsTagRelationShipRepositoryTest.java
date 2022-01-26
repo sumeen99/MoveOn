@@ -17,18 +17,20 @@ public class PostsTagRelationShipRepositoryTest {
     PostsTagRelationShipRepository postsTagRelationShipRepository;
 
     @Test
-    public void save(){
+    public void save() {
         //given
-        Long schoolId=1L;
-        Long departmentId=2L;
-        Long postId=2L;
-        Long userId=2L;
-        Long tagId=1L;
+        Long schoolId = 1L;
+        Long departmentId = 2L;
+        Long postId = 2L;
+        Long userId = 2L;
+        Long tagId = 1L;
+
         //when
         PostsTagRelationShip postsTagRelationShip = PostsTagRelationShip.builder().schoolId(schoolId).departmentId(departmentId).postId(postId).userId(userId).tagId(tagId).build();
         postsTagRelationShipRepository.save(postsTagRelationShip);
+
         //then
-        PostsTagRelationShip postsTagRelationShip1=postsTagRelationShipRepository.findById(postsTagRelationShip.getId()).orElseThrow(()->new IllegalArgumentException("NO POSTS_TAG_RELATIONSHIP"));
+        PostsTagRelationShip postsTagRelationShip1 = postsTagRelationShipRepository.findById(postsTagRelationShip.getId()).orElseThrow(() -> new IllegalArgumentException("NO POSTS_TAG_RELATIONSHIP"));
         assertThat(postsTagRelationShip.getId()).isEqualTo(postsTagRelationShip1.getId());
     }
 }

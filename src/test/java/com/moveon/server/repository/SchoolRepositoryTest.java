@@ -17,17 +17,17 @@ public class SchoolRepositoryTest {
     SchoolRepository schoolRepository;
 
     @Test
-    public void save(){
+    public void save() {
         //given
-        String content="홍익대학교";
-        String emailForm="hongik.ac.kr";
+        String content = "홍익대학교";
+        String emailForm = "hongik.ac.kr";
 
 
         //when
-        School school=schoolRepository.save(School.builder().content(content).emailForm(emailForm).build());
+        School school = schoolRepository.save(School.builder().content(content).emailForm(emailForm).build());
 
         //then
-        School school1=schoolRepository.findById(school.getId()).orElseThrow(()->new IllegalArgumentException("No School!"));
+        School school1 = schoolRepository.findById(school.getId()).orElseThrow(() -> new IllegalArgumentException("No School!"));
         assertThat(school.getId()).isEqualTo(school1.getId());
     }
 }
