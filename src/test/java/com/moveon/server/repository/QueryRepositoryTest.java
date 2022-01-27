@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@ActiveProfiles("test")
+
 @Transactional
 @SpringBootTest
 public class QueryRepositoryTest {
