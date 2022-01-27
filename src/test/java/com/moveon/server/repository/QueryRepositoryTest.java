@@ -30,33 +30,32 @@ public class QueryRepositoryTest {
     private PostsTagRelationShipRepository postsTagRelationShipRepository;
 
     @Test
-    public void findByContent(){
+    public void findByContent() {
         //given
-        String content="광운대학교";
+        String content = "광운대학교";
         //LocalDateTime now= LocalDateTime.of(2021,11,19,0,0,0);
         //schoolRepository.save(School.builder().content(content).build());
         //when
-        School school=queryRepository.findByContent(content);
+        School school = queryRepository.findByContent(content);
         //then
         assertThat(school.getContent()).isEqualTo(content);
 
     }
 
     @Test
-    public void findByTagDepartmentId(){
+    public void findByTagDepartmentId() {
         //given
-        Long departmentId=2L;
-        Long schoolId=1L;
-        Long postId=2L;
-        Long tagId=3L;
-        Long userId=2L;
-        PostsTagRelationShip postsTagRelationShip=postsTagRelationShipRepository.save(PostsTagRelationShip.builder().departmentId(departmentId).schoolId(schoolId).postId(postId).userId(userId).tagId(tagId).build());
+        Long departmentId = 2L;
+        Long schoolId = 1L;
+        Long postId = 2L;
+        Long tagId = 3L;
+        Long userId = 2L;
+        PostsTagRelationShip postsTagRelationShip = postsTagRelationShipRepository.save(PostsTagRelationShip.builder().departmentId(departmentId).schoolId(schoolId).postId(postId).userId(userId).tagId(tagId).build());
         //when
-        List<Tag> tags= queryRepository.findTagByDepartmentId(departmentId);
+        List<Tag> tags = queryRepository.findTagByDepartmentId(departmentId);
         //then
-        assertThat(tags.get(tags.size()-1).getId()).isEqualTo(postsTagRelationShip.getId());
+        assertThat(tags.get(tags.size() - 1).getId()).isEqualTo(postsTagRelationShip.getId());
     }
-
 
 
 }
