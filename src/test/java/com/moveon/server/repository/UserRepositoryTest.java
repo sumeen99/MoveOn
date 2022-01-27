@@ -23,10 +23,10 @@ public class UserRepositoryTest {
         //given
         String nickname = "나는야숨";
         String role = "USER";
-        String email = "sumeen@naver.com";
+        String email = "sumeen123@naver.com";
         Long schoolId = 1L;
         String school = "세종대학교";
-        String password = "abcde";
+        String password = "sumeen123";
         String name = "이수민";
         String introduction = "안녕하세요 저는 세종대랍니다";
 

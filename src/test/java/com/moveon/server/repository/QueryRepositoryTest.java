@@ -5,17 +5,17 @@ import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShipRep
 import com.moveon.server.repository.School.School;
 import com.moveon.server.repository.School.SchoolRepository;
 import com.moveon.server.repository.Tag.Tag;
-import org.assertj.core.api.LocalDateTimeAssert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@ActiveProfiles("test")
 @Transactional
 @SpringBootTest
 public class QueryRepositoryTest {
@@ -43,7 +43,7 @@ public class QueryRepositoryTest {
     }
 
     @Test
-    public void findByTagDepartmentId() {
+    public void findTagByDepartmentId() {
         //given
         Long departmentId = 2L;
         Long schoolId = 1L;
@@ -51,10 +51,13 @@ public class QueryRepositoryTest {
         Long tagId = 3L;
         Long userId = 2L;
         PostsTagRelationShip postsTagRelationShip = postsTagRelationShipRepository.save(PostsTagRelationShip.builder().departmentId(departmentId).schoolId(schoolId).postId(postId).userId(userId).tagId(tagId).build());
+
         //when
         List<Tag> tags = queryRepository.findTagByDepartmentId(departmentId);
+
+
         //then
-        assertThat(tags.get(tags.size() - 1).getId()).isEqualTo(postsTagRelationShip.getId());
+        assertThat(tags.get(tags.size() - 1).getId()).isEqualTo(postsTagRelationShip.getTagId());
     }
 
 
