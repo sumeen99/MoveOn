@@ -37,12 +37,15 @@ public class AuthService {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken); // 사용자 비밀번호 체크, CustomUserDetailsService에서의 loadUserByUsername 메서드가 실행됨
         SecurityContextHolder.getContext().setAuthentication(authentication);//securityContext에 저장
 
+        String email = authentication.getName();
+
         TokenDto tokenDto = jwtTokenProvider.createToken(authentication);
         RefreshToken refreshToken = RefreshToken.builder()
-                .userEmail(authentication.getName())
+                .userEmail(email)
                 .token(tokenDto.getRefreshToken())
                 .build();
-        tokenDto.updateUserId(queryRepository.findUserIdByUserEmail(authentication.getName()));
+
+        tokenDto.updateId(queryRepository.findUserIdByUserEmail(email), queryRepository.findSchoolIdByUserEmail(email));
         refreshTokenRepository.save(refreshToken);
         return tokenDto;
 

@@ -1,6 +1,5 @@
 package com.moveon.server.service;
 
-import com.moveon.server.repository.PostsTagRelationShip.PostsTagRelationShip;
 import com.moveon.server.repository.QueryRepository;
 import com.moveon.server.repository.Tag.Tag;
 import com.moveon.server.repository.Tag.TagRepository;
@@ -17,7 +16,8 @@ public class TagService {
     private final QueryRepository queryRepository;
 
     @Transactional(readOnly = true)
-    public List<Tag> selectTags(Long departmentId){
+    public List<Tag> selectTags(Long departmentId) {
+
         return queryRepository.findTagByDepartmentId(departmentId);
     }
 

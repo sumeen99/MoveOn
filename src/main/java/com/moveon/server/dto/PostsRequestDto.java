@@ -2,9 +2,11 @@ package com.moveon.server.dto;
 
 import com.moveon.server.repository.Posts.Posts;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

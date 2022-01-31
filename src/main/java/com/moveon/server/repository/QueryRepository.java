@@ -182,5 +182,14 @@ public class QueryRepository {
         return queryFactory.select(user.id).from(user).where(user.email.eq(email)).fetchOne();
     }
 
+    /**
+     * email로 schoolId 가져오기
+     * @param email
+     * @return
+     */
+    public Long findSchoolIdByUserEmail(String email){
+        return queryFactory.select(user.schoolId).from(user).where(user.email.eq(email)).fetchOne();
+    }
+
 
 }
