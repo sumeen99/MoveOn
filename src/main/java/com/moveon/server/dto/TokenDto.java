@@ -15,7 +15,7 @@ public class TokenDto {
     private Long userId;
     private Long schoolId;
 
-    public void updateId(Long userId, Long SchoolId) {
+    public void updateId(Long userId, Long schoolId) {
         this.userId = userId;
         this.schoolId = schoolId;
     }
